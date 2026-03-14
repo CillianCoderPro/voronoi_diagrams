@@ -7,7 +7,7 @@ pygame.init()
 screen = pygame.display.set_mode((750,750))
 screen_width, screen_height = screen.get_size()
 
-step = 10
+step = 15
 
 
 class Capitol:
@@ -20,7 +20,7 @@ class Capitol:
     def draw(self):
         pygame.draw.circle(screen,self.point_col,(self.x,self.y),self.point_radius)
 
-paris = Capitol(25,50,(255,240,240))
+paris = Capitol(25,50,(255,220,150))
 paris.draw()
 enemy = Capitol(725,700,"WHITE")
 enemy.draw()
@@ -33,7 +33,7 @@ for i in range(step):
     x = randint(0,screen_width)
     y = randint(0,screen_height)
     #colour = (randint(0,255),randint(0,255),randint(0,255))
-    colour = (i*5, i*25,i*5)
+    colour = (0,0,0)
     cap = Capitol(x,y,colour)
     capitols.append(cap)
 
