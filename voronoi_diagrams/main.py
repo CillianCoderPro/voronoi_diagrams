@@ -4,10 +4,10 @@ from math import sqrt
 
 pygame.init()
 
-screen = pygame.display.set_mode((750,750), pygame.FULLSCREEN)
+screen = pygame.display.set_mode((750,750))
 screen_width, screen_height = screen.get_size()
 
-step = 7
+step = 10
 
 
 class Capitol:
@@ -33,7 +33,7 @@ for i in range(step):
     x = randint(0,screen_width)
     y = randint(0,screen_height)
     #colour = (randint(0,255),randint(0,255),randint(0,255))
-    colour = (0, 0,0)
+    colour = (i*5, i*25,i*5)
     cap = Capitol(x,y,colour)
     capitols.append(cap)
 
