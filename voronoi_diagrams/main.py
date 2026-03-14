@@ -4,9 +4,12 @@ from math import sqrt
 
 pygame.init()
 
-screen = pygame.display.set_mode((750,750))
+screen = pygame.display.set_mode((750,750), pygame.FULLSCREEN)
 screen_width, screen_height = screen.get_size()
 screen.fill((255, 255, 255))
+
+step = 7
+
 
 class Capitol:
     def __init__(self, X, Y, COL, point_col = "BLACK",point_radius = 5):
@@ -27,7 +30,7 @@ def distance(point1,point2):
     return sqrt((point1[0]-point2[0])**2+(point1[1]-point2[1])**2)
 
 capitols = [paris]
-for i in range(5):
+for i in range(step):
     x = randint(0,screen_width)
     y = randint(0,screen_height)
     #colour = (randint(0,255),randint(0,255),randint(0,255))
@@ -71,6 +74,10 @@ while True:
             pygame.quit()
             exit()
         if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_ESCAPE:
+                print("a")
+                pygame.quit()
+                exit()
             if event.key == pygame.K_DOWN: paris.y+=10
             if event.key == pygame.K_UP: paris.y -= 10
             if event.key == pygame.K_RIGHT: paris.x += 10
@@ -80,6 +87,9 @@ while True:
     #mouse_x, mouse_y = pygame.mouse.get_pos()
     paris.x, paris.y = pygame.mouse.get_pos()
     paris.draw()
+    if pygame.mouse.get_pressed()[0]:
+        e = Capitol(paris.x,paris.y, "WHITE")
+        capitols.append(e)
 
     #pygame.time.wait(1000)
     """
@@ -90,5 +100,5 @@ while True:
     enemy.col = (randint(0,255),randint(0,255),randint(0,255))
     paris.col = (randint(0, 255), randint(0, 255), randint(0, 255))
     """
-    update_caps(7)
+    update_caps(step+5)
     pygame.display.flip()
