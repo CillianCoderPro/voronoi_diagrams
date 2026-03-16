@@ -8,7 +8,7 @@ screen = pygame.display.set_mode((750,750))
 screen_width, screen_height = screen.get_size()
 
 step = 15
-
+toggle = True
 
 class Capitol:
     def __init__(self, X, Y, COL, point_col = "BLACK",point_radius = 5):
@@ -28,6 +28,16 @@ enemy.draw()
 def distance(point1,point2):
     return sqrt((point1[0]-point2[0])**2+(point1[1]-point2[1])**2)
 
+def change_col(L,toggle):
+    if toggle:
+        for e in L:
+            if e.col != (255, 220, 150): e.col = "BLACK"
+    else:
+        for i,e in enumerate(L):
+            if e.col != (255,220,150):
+                value = i*10
+                e.col = (value,value,value)
+
 capitols = [paris]
 for i in range(step):
     x = randint(0,screen_width)
@@ -46,6 +56,7 @@ def update_caps(step):
     for x in range(0,screen_width,step):
         for y in range(0,screen_height,step):
             #draw_caps(capitols)
+            """
             events = pygame.event.get()
             for event in events:
                 if event.type == pygame.QUIT:
@@ -54,6 +65,7 @@ def update_caps(step):
                 if event.type == pygame.KEYDOWN:
                     print("a")
                     return
+            """
             closest_cap = Capitol(screen_width*2,screen_height*2,"BLACK")
             for e in capitols:
                 dist = distance((x,y),(e.x,e.y))
@@ -74,9 +86,11 @@ while True:
             exit()
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
-                print("a")
                 pygame.quit()
                 exit()
+            if event.key == pygame.K_SPACE:
+                toggle = not toggle
+                change_col(capitols,toggle)
             if event.key == pygame.K_DOWN: paris.y+=10
             if event.key == pygame.K_UP: paris.y -= 10
             if event.key == pygame.K_RIGHT: paris.x += 10
