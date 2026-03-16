@@ -7,7 +7,7 @@ pygame.init()
 screen = pygame.display.set_mode((750,750))
 screen_width, screen_height = screen.get_size()
 
-step = 15
+step = 2
 toggle = True
 
 class Capitol:
