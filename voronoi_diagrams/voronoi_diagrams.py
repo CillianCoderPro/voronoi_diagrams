@@ -7,20 +7,20 @@ pygame.init()
 screen = pygame.display.set_mode((750,750))
 screen_width, screen_height = screen.get_size()
 
-step = 2
+step = 5
 toggle = True
 
 class Capitol:
-    def __init__(self, X, Y, COL, point_col = "BLACK",point_radius = 5):
+    def __init__(self, X, Y, COL,point_col = "RED",point_radius = 5):
         self.x = X
         self.y = Y
         self.col = COL
-        self.point_col = self.col
+        self.point_col = point_col
         self.point_radius = point_radius
     def draw(self):
         pygame.draw.circle(screen,self.point_col,(self.x,self.y),self.point_radius)
 
-paris = Capitol(25,50,(255,220,150))
+paris = Capitol(25,50,(255,220,150),"BLUE")
 paris.draw()
 enemy = Capitol(725,700,"WHITE")
 enemy.draw()
@@ -35,7 +35,7 @@ def change_col(L,toggle):
     else:
         for i,e in enumerate(L):
             if e.col != (255,220,150):
-                value = i*10
+                value = i*15
                 e.col = (value,value,value)
 
 capitols = [paris]
@@ -55,19 +55,11 @@ def draw_caps(l):
 def update_caps(step):
     for x in range(0,screen_width,step):
         for y in range(0,screen_height,step):
-            #draw_caps(capitols)
-            """
-            events = pygame.event.get()
-            for event in events:
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    exit()
-                if event.type == pygame.KEYDOWN:
-                    print("a")
-                    return
-            """
+            draw_caps(capitols)
             closest_cap = Capitol(screen_width*2,screen_height*2,"BLACK")
             for e in capitols:
+                #e.x += randint(-1,1)
+                #e.y += randint(-1, 1)
                 dist = distance((x,y),(e.x,e.y))
                 if dist < distance((x,y),(closest_cap.x,closest_cap.y)):
                     closest_cap = e
@@ -113,5 +105,5 @@ while True:
     enemy.col = (randint(0,255),randint(0,255),randint(0,255))
     paris.col = (randint(0, 255), randint(0, 255), randint(0, 255))
     """
-    update_caps(step+5)
+    update_caps(step+6)
     pygame.display.flip()
