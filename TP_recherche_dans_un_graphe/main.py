@@ -1,6 +1,6 @@
 import dico
 from pile import Pile
-
+from file import File
 
 def distance(mot1,mot2,k):
     """
@@ -80,3 +80,36 @@ def solve(graphe, depart, arrivee):
 
 
 print(solve(graphe, 'ours', 'cage'))
+
+
+def solve2(graphe, depart, arrivee):
+    """
+    :param graphe: Le dictionnaire d'adjacence des mots
+    :param depart: Le mot de départ
+    :param arrivee: Le mot cible à atteindre
+    :return: le chemin le plus court entre depart et arrivee via un parcours en largeur (BFS)
+    """
+
+    candidats = File()
+    candidats.enfiler(depart)
+    visite = dict()
+    visite[depart] = None
+    trouve = False
+    while not candidats.vide() and not trouve:
+        courant = candidats.defiler()
+
+        if courant == arrivee:
+            trouve = True
+        else:
+            for voisin in graphe[courant]:
+                if voisin not in visite:
+                    # On marque comme visité dès qu'on l'ajoute à la file
+                    visite[voisin] = courant
+                    candidats.enfiler(voisin)
+    if trouve:
+        return Solution(arrivee, visite)
+    else:
+        return None
+
+# Test du script
+print(solve2(graphe, 'ours', 'cage'))
